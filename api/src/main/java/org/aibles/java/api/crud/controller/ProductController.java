@@ -49,7 +49,7 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         log.info("REQUEST TO DELETE BO WITH ID: {}", id);
         productService.deleteProductById(id);
-        log.info("DELETE SUCCESSFUL");
+        log.info("DELETE PRODUCT SUCCESSFUL");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
