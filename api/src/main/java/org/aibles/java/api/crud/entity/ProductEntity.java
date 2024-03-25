@@ -1,7 +1,7 @@
 package org.aibles.java.api.crud.entity;
 
 import jakarta.persistence.*;
-//
+
 @Entity
 @Table(name = "product_manager")
 public class ProductEntity {

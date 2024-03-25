@@ -1,5 +1,5 @@
 package org.aibles.java.api.crud.dto;
-//
+
 public class ProductReponse {
     private Long id;
     private String product_name;
