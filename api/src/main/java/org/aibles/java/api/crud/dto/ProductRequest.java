@@ -1,5 +1,5 @@
 package org.aibles.java.api.crud.dto;
-
+//
 public class ProductRequest {
     private String product_name;
     private String price;
