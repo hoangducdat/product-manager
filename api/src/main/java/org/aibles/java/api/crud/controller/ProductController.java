@@ -49,8 +49,6 @@ public class ProductController {
     public ResponseEntity<ProductReponse> getProductById(@PathVariable Long id) {
         log.info("GET PRODUCT BY ID: {}",id);
         try {
-
-
             ProductReponse product = productService.getProductById(id);
             return ResponseEntity.ok(product);
         } catch (ProductNotFoundException e) {
@@ -61,7 +59,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        log.info("REQUEST TO DELETE BO WITH ID: {}", id);
+        log.info("REQUEST TO DELETE BY WITH ID: {}", id);
         try {
             productService.deleteProductById(id);
         } catch (ProductNotFoundException e) {
