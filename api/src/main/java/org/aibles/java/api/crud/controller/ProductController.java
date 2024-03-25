@@ -1,5 +1,5 @@
 package org.aibles.java.api.crud.controller;
-
+//
 import org.aibles.java.api.crud.dto.ProductReponse;
 import org.aibles.java.api.crud.dto.ProductRequest;
 import org.aibles.java.api.crud.exception.ProductNotFoundException;
@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
@@ -25,7 +23,6 @@ public class ProductController {
         ProductReponse productReponse = productService.createProduct(productRequest);
         log.info("CREATE PRODUCT SUCCESSFUL: {}", productReponse);
         return new ResponseEntity<>(productReponse, HttpStatus.CREATED);
-
     }
     @PutMapping("/{id}")
     public ResponseEntity<ProductReponse> updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
