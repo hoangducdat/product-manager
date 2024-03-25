@@ -3,7 +3,6 @@ package org.aibles.java.api.crud.dto;
 public class ProductRequest {
     private String product_name;
     private String price;
-
     public ProductRequest(String product_name, String price) {
         this.product_name = product_name;
         this.price = price;
