@@ -42,19 +42,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductReponse getProductById(Long id) throws ProductNotFoundException {
+    public ProductReponse getProductById(Long id) {
         log.info("GET PRODUCT WITH ID: {}",id);
         Optional<ProductEntity> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             ProductEntity product = optionalProduct.get();
             return new ProductReponse(product.getId(), product.getProduct_name(), product.getPrice());
         } else {
-            throw new ProductNotFoundException("Product not found with id: " + id);
+            throw new RuntimeException("Product not found with id: " + id);
         }
     }
 
     @Override
-    public ProductReponse updateProduct(Long id, ProductRequest productRequest) throws ProductNotFoundException {
+    public ProductReponse updateProduct(Long id, ProductRequest productRequest)  {
         log.info("UPDATE PRODUCT WITH ID: {}", id);
         Optional<ProductEntity> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
             ProductEntity updatedProduct = productRepository.save(product);
             return new ProductReponse(updatedProduct.getId(), updatedProduct.getProduct_name(), updatedProduct.getPrice());
         } else {
-            throw new ProductNotFoundException("Product not found with id: " + id);
+            throw new RuntimeException("Product not found with id: " + id);
         }
     }
 
