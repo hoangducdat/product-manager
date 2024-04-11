@@ -3,12 +3,16 @@ package org.aibles.java.api.crud.service.impl;
 import org.aibles.java.api.crud.dto.ProductReponse;
 import org.aibles.java.api.crud.dto.ProductRequest;
 import org.aibles.java.api.crud.entity.ProductEntity;
-import org.aibles.java.api.crud.exception.ProductNotFoundException;
 import org.aibles.java.api.crud.reponsitory.ProductRepository;
 import org.aibles.java.api.crud.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,19 +30,18 @@ public class ProductServiceImpl implements ProductService {
     public ProductReponse createProduct(ProductRequest productRequest) {
         log.info("(===CREATE PRODUCT===) productRequest: {}", productRequest);
         ProductEntity product = new ProductEntity();
-        product.setProduct_name(productRequest.getProduct_name());
+        product.setProductName(productRequest.getProductName());
         product.setPrice(productRequest.getPrice());
         ProductEntity savedProduct = productRepository.save(product);
-        return new ProductReponse(savedProduct.getId(), savedProduct.getProduct_name(), savedProduct.getPrice());
+        return new ProductReponse(savedProduct.getId(), savedProduct.getProductName(), savedProduct.getPrice());
     }
 
     @Override
-    public List<ProductReponse> getAllProducts() {
-        log.info("===GET ALL PRODUCT");
+    public Page<ProductReponse> getAllProducts(Pageable pageable) {
+        log.info("GET ALL PRODUCT");
         List<ProductEntity> products = productRepository.findAll();
-        return products.stream()
-                .map(product -> new ProductReponse(product.getId(), product.getProduct_name(), product.getPrice()))
-                .collect(Collectors.toList());
+        return productRepository.findAll(pageable)
+                .map(product -> new ProductReponse(product.getId(), product.getProductName(), product.getPrice()));
     }
 
     @Override
@@ -47,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<ProductEntity> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             ProductEntity product = optionalProduct.get();
-            return new ProductReponse(product.getId(), product.getProduct_name(), product.getPrice());
+            return new ProductReponse(product.getId(), product.getProductName(), product.getPrice());
         } else {
             throw new RuntimeException("Product not found with id: " + id);
         }
@@ -59,10 +62,10 @@ public class ProductServiceImpl implements ProductService {
         Optional<ProductEntity> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             ProductEntity product = optionalProduct.get();
-            product.setProduct_name(productRequest.getProduct_name());
+            product.setProductName(productRequest.getProductName());
             product.setPrice(productRequest.getPrice());
             ProductEntity updatedProduct = productRepository.save(product);
-            return new ProductReponse(updatedProduct.getId(), updatedProduct.getProduct_name(), updatedProduct.getPrice());
+            return new ProductReponse(updatedProduct.getId(), updatedProduct.getProductName(), updatedProduct.getPrice());
         } else {
             throw new RuntimeException("Product not found with id: " + id);
         }
@@ -72,5 +75,18 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(Long id) {
         log.info("DELETE PRODUCT BY ID: {}",id);
         productRepository.deleteById(id);
+    }
+    @Override
+    public List<ProductReponse> getProductsByFilter(String productName) {
+        log.info("Request to get products by filter");
+        List<ProductEntity> products;
+        if (productName != null && !productName.isEmpty()) {
+            products = productRepository.findByProductNameContainingIgnoreCase(productName);
+        } else {
+            products = productRepository.findAll();
+        }
+        return products.stream()
+                .map(product -> new ProductReponse(product.getId(), product.getProductName(), product.getPrice()))
+                .collect(Collectors.toList());
     }
 }

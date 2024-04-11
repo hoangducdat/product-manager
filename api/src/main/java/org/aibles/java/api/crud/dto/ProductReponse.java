@@ -2,7 +2,7 @@ package org.aibles.java.api.crud.dto;
 //
 public class ProductReponse {
     private Long id;
-    private String product_name;
+    private String productName;
     private String price;
     public Long getId() {
         return id;
@@ -10,11 +10,11 @@ public class ProductReponse {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
     public String getPrice() {
         return price;
@@ -24,9 +24,9 @@ public class ProductReponse {
     }
     public ProductReponse() {
     }
-    public ProductReponse(Long id, String product_name, String price) {
+    public ProductReponse(Long id, String productName, String price) {
         this.id = id;
-        this.product_name = product_name;
+        this.productName = productName;
         this.price = price;
     }
 
