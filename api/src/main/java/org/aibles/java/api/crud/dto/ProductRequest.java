@@ -1,19 +1,19 @@
 package org.aibles.java.api.crud.dto;
 //
 public class ProductRequest {
-    private String product_name;
+    private String productName;
     private String price;
-    public ProductRequest(String product_name, String price) {
-        this.product_name = product_name;
+    public ProductRequest(String productName, String price) {
+        this.productName = productName;
         this.price = price;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String productName) {
-        this.product_name = productName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getPrice() {

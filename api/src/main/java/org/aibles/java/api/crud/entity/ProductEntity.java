@@ -8,7 +8,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "product_name")
-    private String product_name;
+    private String productName;
     @Column(name = "price")
     private String price;
     @Column(name = "manufacturing_country")
@@ -22,12 +22,12 @@ public class ProductEntity {
         this.id = id;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getPrice() {
@@ -50,7 +50,7 @@ public class ProductEntity {
     public String toString() {
         return "ProductEntity{" +
                 "id='" + id + '\'' +
-                ", product_name='" + product_name + '\'' +
+                ", productName='" + productName+ '\'' +
                 ", price='" + price + '\'' +
                 ", manufacturing_country='" + manufacturing_country + '\'' +
                 '}';
